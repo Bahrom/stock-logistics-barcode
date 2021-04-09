@@ -345,12 +345,12 @@ class WizCandidatePicking(models.TransientModel):
             )
 
     def _get_wizard_barcode_read(self):
-        return self.env["wiz.stock.barcodes.read.picking"].browse(
+        return self.env["wiz.stock.barcodes.read.picking"].sudo().browse(
             self.env.context["wiz_barcode_id"]
         )
 
     def action_lock_picking(self):
-        wiz = self._get_wizard_barcode_read()
+        wiz = self._get_wizard_barcode_read().sudo()
         picking_id = self.env.context["picking_id"]
         wiz.picking_id = picking_id
         wiz._set_candidate_pickings(wiz.picking_id)

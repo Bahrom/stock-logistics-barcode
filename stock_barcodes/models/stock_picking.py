@@ -11,7 +11,7 @@ class StockPicking(models.Model):
         location = self.location_id if out_picking else self.location_dest_id
         action = self.env.ref(
             "stock_barcodes.action_stock_barcodes_read_picking"
-        ).read()[0]
+        ).sudo().read()[0]
         action["context"] = {
             "default_location_id": location.id,
             "default_partner_id": self.partner_id.id,

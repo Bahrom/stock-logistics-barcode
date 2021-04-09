@@ -9,7 +9,7 @@ class StockPickingType(models.Model):
     def action_barcode_scan(self):
         action = self.env.ref(
             "stock_barcodes.action_stock_barcodes_read_picking"
-        ).read()[0]
+        ).sudo().read()[0]
         action["context"] = {
             "default_res_model_id": self.env.ref("stock.model_stock_picking_type").id,
             "default_res_id": self.id,
